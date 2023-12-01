@@ -186,6 +186,10 @@ func (ns *nodeSource) nodeAddresses(node *v1.Node) ([]string, error) {
 	if len(addresses[v1.NodeExternalIP]) > 0 {
 		return addresses[v1.NodeExternalIP], nil
 	}
+	//Add label compatibility YuanLu
+	if externalIP, exists := node.Labels["ExternalIP"]; exists {
+		return []string{externalIP}, nil
+	}
 
 	if len(addresses[v1.NodeInternalIP]) > 0 {
 		return addresses[v1.NodeInternalIP], nil

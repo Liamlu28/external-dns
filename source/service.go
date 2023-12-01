@@ -553,6 +553,11 @@ func (sc *serviceSource) extractNodePortTargets(svc *v1.Service) (endpoint.Targe
 			case v1.NodeInternalIP:
 				internalIPs = append(internalIPs, address.Address)
 			}
+		    // //Add label compatibility YuanLu
+		if !hasExternalIP {
+			if externalIP, exists := node.Labels["ExternalIP"]; exists {
+				externalIPs = append(externalIPs, externalIP)
+			}
 		}
 	}
 
